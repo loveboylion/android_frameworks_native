@@ -2153,9 +2153,15 @@ Region Layer::latchBuffer(bool& recomputeVisibleRegions)
         // BufferItem's that weren't actually queued. This can happen in shared
         // buffer mode.
         bool queuedBuffer = false;
+#ifdef DECIDE_TEXTURE_TARGET
+        status_t updateResult = mSurfaceFlingerConsumer->updateTexImage(&r,
+                mFlinger->mPrimaryDispSync,&mAutoRefresh, &queuedBuffer,
+                mLastFrameNumberReceived,&mTexture);
+#else
         status_t updateResult = mSurfaceFlingerConsumer->updateTexImage(&r,
                 mFlinger->mPrimaryDispSync, &mAutoRefresh, &queuedBuffer,
                 mLastFrameNumberReceived);
+#endif
         if (updateResult == BufferQueue::PRESENT_LATER) {
             // Producer doesn't want buffer to be displayed yet.  Signal a
             // layer update so we check again at the next opportunity.

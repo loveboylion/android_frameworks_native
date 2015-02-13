@@ -138,6 +138,10 @@ ifeq ($(BOARD_USE_BGRA_8888),true)
     LOCAL_CFLAGS += -DUSE_BGRA_8888
 endif
 
+ifeq ($(BOARD_ADRENO_DECIDE_TEXTURE_TARGET),true)
+    LOCAL_CFLAGS += -DDECIDE_TEXTURE_TARGET
+endif
+
 LOCAL_CFLAGS += -fvisibility=hidden -Werror=format
 LOCAL_CFLAGS += -std=c++14
 
